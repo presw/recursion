@@ -23,9 +23,7 @@ var stringifyJSON = function(obj) {
       return '{}';
     }
     for (let key in obj) {
-      if(typeof obj[key] === 'function' || obj[key] === undefined) {
-        delete key;
-      } else {
+      if(typeof obj[key] !== 'function' && obj[key] !== undefined) {
         arr.push(stringifyJSON(key) + ":" + stringifyJSON(obj[key]));
       }
     }

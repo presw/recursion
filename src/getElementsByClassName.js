@@ -20,14 +20,17 @@ var getElementsByClassName = function(className) {
 
   // Later recursions
   for (let i = 0; i < className.array.length; i++) {
-    if (typeof className.array[i].className === 'string' && className.array[i].className.includes(className.find)) {
-      className.output.push(className.array[i]);
+    let element = className.array[i];
+    let hasClassName = typeof element.className === 'string';
+
+    if (hasClassName && element.className.includes(className.find)) {
+      className.output.push(element);
     }
-    if (className.array[i].hasChildNodes()) {
+    if (element.hasChildNodes()) {
       let passObj = {
         output: [],
-        array: Array.from(className.array[i].childNodes),
-        find: className.find
+        find: className.find,
+        array: Array.from(element.childNodes)
       }
       className.output = className.output.concat(getElementsByClassName(passObj));
     }

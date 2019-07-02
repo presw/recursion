@@ -9,7 +9,7 @@ var getElementsByClassName = function(className) {
 
   // First iteration:
   if (typeof className === 'string') {
-    let domArray = Array.from(document.body.childNodes);
+    let domArray = Array.from(document.childNodes);
     let recObj = {
       output: [],
       find: className,

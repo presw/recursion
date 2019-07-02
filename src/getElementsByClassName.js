@@ -6,33 +6,22 @@
 // But instead we're going to implement it from scratch:
 
 var getElementsByClassName = function(className) {
+  let output = [];
+  let element = Array.from(document.childNodes);
+  let args = [...arguments];
 
-  // First iteration:
-  if (typeof className === 'string') {
-    let recObj = {
-      output: [],
-      find: className,
-      array: Array.from(document.childNodes)
-    };
-    return getElementsByClassName(recObj);
+  if (args.length > 1) {
+    element = args[1].childNodes;
   }
 
-  // Later recursions
-  for (let i = 0; i < className.array.length; i++) {
-    let element = className.array[i];
-    let hasClassName = typeof element.className === 'string';
-
-    if (hasClassName && element.className.includes(className.find)) {
-      className.output.push(element);
+  for (let i = 0; i < element.length; i++) {
+    let hasClassName = typeof element[i].className === 'string';
+    if (hasClassName && element[i].className.includes(className)) {
+      output.push(element[i]);
     }
-    if (element.hasChildNodes()) {
-      let passObj = {
-        output: [],
-        find: className.find,
-        array: Array.from(element.childNodes)
-      }
-      className.output = className.output.concat(getElementsByClassName(passObj));
+    if (element[i].hasChildNodes()) {
+      output = output.concat(getElementsByClassName(className, element[i]));
     }
   }
-  return className.output;
+  return output;
 };
